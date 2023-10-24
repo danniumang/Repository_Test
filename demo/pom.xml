@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>  <!--lookup parent from repository -->
 	</parent>
 	<groupId>com.demo</groupId>
 	<artifactId>demo</artifactId>
@@ -14,24 +14,61 @@
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 	<!--继承公司自己的需另行配置+plugin maven  java 版本  -->
-	<properties><!--普通maven配置而成  -->
+	<properties><!--普通maven配置而成 部署在服务器当中使用 -->
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<skipTests>true</skipTests>  
 	</properties>
 	<dependencies>
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency> -->
-		<dependency>
+		<!-- rest full 开发模式 -->
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<exclusions>
+			<exclusion>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+			</exclusion>
+			</exclusions>
 		</dependency>
+		 <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<!-- 单机缓存 -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+		<!--透明的替换 应用的session容器  -->
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency><dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
@@ -45,16 +82,55 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- <exclusions>
+			<exclusion>
+			   <groupId>org.springframework.boot</groupId>
+			   <artifactId>pring-boot-starter-logging</artifactId>
+			</exclusion>
+			</exclusions> -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+		<!-- 前端库 begin-->
+		<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>webjars-locator-core</artifactId>
+    <version>0.52</version>
+</dependency>
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>sockjs-client</artifactId>
+    <version>1.5.1</version>
+</dependency>
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>stomp-websocket</artifactId>
+    <version>2.3.4</version>
+</dependency>
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>jquery</artifactId>
+    <version>3.7.1</version>
+</dependency>
+	<!-- 前端库 end-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<!-- 热部署使用，Eclipse  intellij IDEA 不同 -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency> -->
+		
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-hal-explorer</artifactId>
@@ -62,6 +138,20 @@
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
+		</dependency>
+		<dependency>
+    <groupId>com.oracle.database.nls</groupId>
+    <artifactId>orai18n</artifactId>
+    </dependency>
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>2.1.4</version>
+</dependency>
+<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.9</version>
 		</dependency>
 
 		<dependency>
@@ -79,18 +169,30 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
+       <!--  <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
 	</dependencies>
 
 	<build>
+	<resources>
+	<resource>
+	<directory>src/main/java</directory>
+	<includes>
+	<include>**/*.xml</include><!-- 将com.demo.mappers中的xml打包进mvn 项目中  -->
+	</includes>
+	</resource>
+	<resource>
+	<directory>src/main/resources</directory>
+	</resource>
+	</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			 
 			</plugin>
 		</plugins>
 	</build>
