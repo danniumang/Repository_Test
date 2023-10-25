@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.dao.MenuMapper">
+<resultMap type="com.demo.entity.Menu"  id="BaseMenuRole">
+<id property="mid" column="mid"/>
+<result property="pattern" column="pattern"></result>
+<collection property="roles" ofType="com.demo.entity.Role">
+<id property="roleId" column="ROLEID"/>
+<result property="roleName" column="ROLENAME"></result>
+<result property="describe" column="DESCRIBE"/>
+</collection>
+</resultMap>
+	<select id="getAllMenus"   resultMap="BaseMenuRole">
+		select a.*,c.* from menu a, menu_role b,sysrole c  where a.mid=b.menu_id and b.role_id=c.roleid
+	</select>
+
+</mapper>

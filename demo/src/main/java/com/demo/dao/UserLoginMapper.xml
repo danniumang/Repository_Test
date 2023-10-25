@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.dao.UserLoginMapper">
+<resultMap type="com.demo.entity.UserLogin"  id="userAndRole">
+<id property="userId" column="USERID"/>
+<result property="username" column="USERNAME"></result>
+<result property="password" column="password"></result>
+<result property="enabled" column="ENABLED"/>
+<result property="locked" column="LOCKED"/>
+<collection property="roles" ofType="com.demo.entity.Role">
+<id property="roleId" column="ROLEID"></id>
+<result property="roleName" column="ROLENAME"/>
+<result property="describe" column="DESCRIBE"/>
+</collection>
+</resultMap>
+
+	<select id="loadByUsername"  parameterType="String" resultMap="userAndRole">
+		select a.*, c.* from userlogin a ,USER_ROLE  b, sysrole c  where   a.userid=b.userid and c.roleid=b.sysroleid and a.username=#{username}
+	</select>
+
+<select id="getUserRolesByUid" resultType="com.demo.entity.Role">
+		select b.* from sysrole b,user_role c  where  c.sysroleid=b.roleid and c.userid=#{id}
+	</select>
+
+
+</mapper>
