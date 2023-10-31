@@ -33,6 +33,7 @@ import com.demo.service.UserLoginService;
  * PreAuthorize()：在方法执行前进行验证
  * PostAuthorize()：在方法执行后进行验证
  * securedEnabled = true：解锁@Secured
+ * 权限控制
  */
 @EnableGlobalMethodSecurity(prePostEnabled=true,securedEnabled = true)
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
