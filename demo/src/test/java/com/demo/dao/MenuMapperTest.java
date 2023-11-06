@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.demo.config.JmsComponent;
+import com.demo.component.JmsComponent;
 import com.demo.entity.Menu;
 import com.demo.entity.Message;
 @SpringBootTest

@@ -1,4 +1,4 @@
-package com.demo.config;
+package com.demo.component;
 
 import java.util.Collection;
 import java.util.List;

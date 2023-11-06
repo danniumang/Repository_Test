@@ -24,7 +24,7 @@ public class DemoApplication {
 	}
 	//这个Bean居然是放在 这里的，不是放在Config 修饰的类中
 @Bean
-Queue queue() {
+Queue queue() {//activeMQqueue ---rabbitMq 两者选其一。 这里也是queue.这里返回的amq,应该也可以添加其他的bmq cmq 等Bean。根据业务要求将不同的数据添加到不同的queue中。功能相关性。
 	return new ActiveMQQueue("amq");
 }
 }
