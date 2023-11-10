@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 
-import com.demo.dao.AdminDao;
+import com.demo.dao.AdminMapper;
 import com.demo.entity.Auser;
 import com.demo.service.admin.AdminService;
 @Service
@@ -16,7 +16,7 @@ import com.demo.service.admin.AdminService;
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
-    private AdminDao adminDao;
+    private AdminMapper adminDao;
 	@Override
 	public String login(Auser auser, Model model, HttpSession session) {
 		// TODO Auto-generated method stub

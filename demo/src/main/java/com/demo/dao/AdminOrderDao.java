@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-@Repository("adminOrderDao")
+
 @Mapper
 public interface AdminOrderDao {
 

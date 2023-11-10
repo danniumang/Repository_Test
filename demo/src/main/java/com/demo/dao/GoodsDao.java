@@ -20,8 +20,11 @@ import com.demo.entity.Goods;
  * @author liu
  * @version 创建时间：2021年5月26日 下午9:52:19 
  */
-@Repository("goodsDao")
-@Mapper
+/*
+ * @Repository("goodsDao")
+ * 
+ * @Mapper
+ */
 public interface GoodsDao {
      public int addGoods(Goods goods);
      public List<Goods>selectGoods();

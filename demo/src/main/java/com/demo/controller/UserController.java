@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.service.UserServiceus;
+import com.demo.service.UserService;
 
 @RestController
 public class UserController {
 	@Autowired
-	UserServiceus userService;
+	UserService userService;
 	@GetMapping("/getUserById")
 	public String getUserById(Integer id) {
 		return userService.getUserById(id);

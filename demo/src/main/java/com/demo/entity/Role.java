@@ -5,6 +5,10 @@ import java.util.List;
 
 
 public class Role implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String roleId;
 	private String roleName;
 	private String describe;

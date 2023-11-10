@@ -10,7 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication(scanBasePackages = {"com.demo"})
+/**
+ * @Title DemoApplication.java
+ * @Des TODO
+ * @author daliu
+ * @version 创建时间：2023年11月8日 下午11:54:40 
+ * rabbitmq activemq 同一台服务器上5672端口默认冲突，一般使用其一即可
+ * springboot 默认对jpa,jdbc,mybatis开启了事务。有些接口没有默认开启事务，需要手动开启事务。声明式事务的支持
+ */
+@SpringBootApplication(scanBasePackages = {"com.demo"})//this setting is an alias for @ComponentScan only
 @EnableCaching
 @MapperScan("com.demo.dao")
 public class DemoApplication {
