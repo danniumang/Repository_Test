@@ -1,5 +1,8 @@
 package com.demo.config;
 
+import java.net.MalformedURLException;
+import java.util.Date;
+
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
@@ -17,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.PathResource;
+import org.springframework.core.io.UrlResource;
 
 import com.demo.entity.User;
 
@@ -42,13 +47,19 @@ public class CsvBatchJobConfig {
 	 *StaxEventItemReader  xml数据
 	 *jdbcPaginItemReader 数据局中的数据
 	 *读取文件
+	 *ClassPathResource
+	 *MultipartFileResource
+	 *UrlResource
+	 *PathResource 
+	 *PathResource 
+	 * @throws MalformedURLException 
 	 */
 	@Bean
 	@StepScope
-	FlatFileItemReader<User>itemReader(){
+	FlatFileItemReader<User>itemReader() throws MalformedURLException{
 		FlatFileItemReader<User>reader=new FlatFileItemReader<>();
 		reader.setLinesToSkip(1);//第一行是标题，需要跳过。
-		reader.setResource(new ClassPathResource("data2.csv"));//数据源，这个根据web段导入，选择具体路径  MultipartFileResource。。。。等等其他的方式
+		reader.setResource(new PathResource ("D:\\data2.csv"));//数据源，这个根据web段导入，选择具体路径  MultipartFileResource。。。。等等其他的方式
 		reader.setLineMapper(new DefaultLineMapper<User>() {//两个阶段的LineMapper实现，包括将行标记到FieldSet，然后映射到项。如果需要对异常进行更细粒度的控制，则应直接实现LineMapper接口
 			{
 				setLineTokenizer(new DelimitedLineTokenizer() {{
@@ -85,9 +96,15 @@ public class CsvBatchJobConfig {
 				new BeanPropertyItemSqlParameterSourceProvider<>());//bean字段与sql占位符一一映射。
 		return writer;
 	}
+	/**
+	 * @return
+	 * @throws MalformedURLException
+	 * Step这个可以唯一，也可每次名称不同
+	 */
 	@Bean
-	Step csvStep() {
+	Step csvStep() throws MalformedURLException {
 		System.out.println("int the csvStep");
+		//String.valueOf(new Date().getTime())+
 		return stepBuilderFactory.get("csvStep1")
 				.<User,User>chunk(2)  //提交间隔
 				.reader(itemReader())
@@ -95,10 +112,17 @@ public class CsvBatchJobConfig {
 				.build();
 		
 	}
+	/**
+	 * @return
+	 * job 每次导入的时候，这个get(xxx)都是唯一性的，重复的话，相当于是同一个任务了。
+	 * 当有一次已经成功批量处理了数据，则后续的批量处理不会成功，所以需要特殊的处理
+	 * @throws MalformedURLException 
+	 */
 	@Bean
-	Job csvJob() {
+	Job csvJob() throws MalformedURLException {
+		//String date=new Date().toString();//String.valueOf(new Date().getTime())+
 		System.out.println("int the csvJob");
-		return jobBuilderFactory.get("csvJob1")
+		return jobBuilderFactory.get(String.valueOf(new Date().getTime())+"csvJob")//创建作业生成器并初始化其作业存储库。请注意，如果构建器用于创建@Beandefinition，那么作业的名称和bean名称可能不同。
 				.start(csvStep())
 				.build();
 	}
