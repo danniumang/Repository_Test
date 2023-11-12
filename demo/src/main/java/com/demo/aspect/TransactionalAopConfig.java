@@ -32,7 +32,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 @Configuration
 public class TransactionalAopConfig {
 	private  final static int METHOD_TIME_OUT=5000;
-	private   final static String POINTCUT_EXPRESSION="executioin(* com.demo.servic..*.*(..))";
+	private   final static String POINTCUT_EXPRESSION="execution(* com.demo.service.*.*(..))";
 	@Resource
 	private TransactionManager transactionManager;
 	@Bean
@@ -80,7 +80,7 @@ public class TransactionalAopConfig {
 	 *TransactionDefinition.PROPAGATION_REQUIRED->无-》新增，有则加入
 	 */
 	@Bean
-	private RuleBasedTransactionAttribute getRuleBasedTransactionAttribute() {
+	public  RuleBasedTransactionAttribute getRuleBasedTransactionAttribute() {
 		// TODO Auto-generated method stub
 		RuleBasedTransactionAttribute required=new RuleBasedTransactionAttribute();
 		required.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));//异常回滚

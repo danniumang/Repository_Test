@@ -39,8 +39,9 @@ public class WebSocketConfig //implements WebSocketMessageBrokerConfigurer  2
 	 */
 	//方法2 weksocket 的实现,测试的时候居然报错，这个只有在使用默认自带的的server可以使用，其他外部的server时是不需要使用的，JUNit 应该是第三方的运行环境。，测试时关闭，其他情况开启，正式环境有待校验
 	
-	/*
-	 * @Bean public ServerEndpointExporter serverEndpointExporter() { return new
-	 * ServerEndpointExporter(); }
-	 */
+	
+	
+	  @Bean public ServerEndpointExporter serverEndpointExporter() { return new
+	  ServerEndpointExporter(); }
+	 
 }

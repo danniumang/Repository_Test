@@ -5,10 +5,12 @@ import javax.jms.Queue;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @Title DemoApplication.java
@@ -20,6 +22,8 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication(scanBasePackages = {"com.demo"})//this setting is an alias for @ComponentScan only
 @EnableCaching
+@EnableScheduling //开启定时任务，这个是spring提供的定时任务
+@EnableBatchProcessing//batch 批量处理
 @MapperScan("com.demo.dao")
 public class DemoApplication {
 

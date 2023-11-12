@@ -17,5 +17,8 @@ public class TopicReceiver {
 	public void handler3(String msg) {
 		System.out.println("huawei queue get : "+msg);
 	}
-
+	@RabbitListener(queues="meizu")
+	public void handler4(String msg) {
+		System.out.println("meizu queue get : "+msg);
+	}
 }

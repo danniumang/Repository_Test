@@ -35,6 +35,9 @@ class RabbitmqApplicationTests {
 		rabbitTemplate.convertAndSend(RabbitTopicConfig.TOPICNAME, "huawei.message", "华为的新闻..");
 		rabbitTemplate.convertAndSend(RabbitTopicConfig.TOPICNAME, "huawei.phone", "华为手机");
 		rabbitTemplate.convertAndSend(RabbitTopicConfig.TOPICNAME, "phone.news", "手机新闻");
+		rabbitTemplate.convertAndSend(RabbitTopicConfig.TOPICNAME, "meizu.news", "手机新闻");
+		rabbitTemplate.convertAndSend(RabbitTopicConfig.TOPICNAME, "meizu.shengji", "神级");
+		rabbitTemplate.convertAndSend(RabbitTopicConfig.TOPICNAME, "meizu.leiqu", "趣闻");
 	}
 	@Test
 	void HeaderTest() {

@@ -7,12 +7,16 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import com.demo.service.MailService;
 @SpringBootTest
 class MailSendTest {
     @Autowired
     MailService  mailService;
+    @Autowired
+    TemplateEngine templateEngine;
 	@Test
 	void test() {
 		mailService.sendSimpleMail("2025884887@qq.com", "1515783415@qq.com", "15700085971@163.com", "springboot测试", "this is content for springboot mail");
@@ -38,6 +42,20 @@ class MailSendTest {
 	"this is first :<div><img src='cid:p01'/></div>"+
 	"this is second:<div><img src='cid:p02'/></div>"+
 	"</div>",new String[] {"C:\\Users\\Administrator\\Pictures\\Camera Roll\\p01.jpg","C:\\Users\\Administrator\\Pictures\\Camera Roll\\p02.jpeg"},new String[] {"p01","p02"});
+	}
+	/**
+	 *HTML  mail 格式
+	 *
+	 */
+	@Test
+	public void sendHtmlMailThymeleaf() {
+		Context ctx=new Context();
+		ctx.setVariable("username", "daliu");
+		ctx.setVariable("gender", "男");
+		String mail=templateEngine.process("mailtemplate.html", ctx);
+		mailService.sendSimpleMail("2025884887@qq.com", "1515783415@qq.com", "", "测试邮件", mail);
+		
+		
 	}
 
 }

@@ -35,6 +35,14 @@ public class RabbitTopicConfig {
 		return new Queue("phone");
 	}
 	@Bean
+	Queue meizu() {
+		return new Queue("meizu");
+	}
+	@Bean
+	Binding meizuBinding() {
+		return BindingBuilder.bind(meizu()).to(topicExchange()).with("meizu.#");
+	}
+	@Bean
 	Binding xiaomiBingding() {
 		return BindingBuilder.bind(xiaomi()).to(topicExchange()).with("xiaomi.#");//以xiaomi开头的routingkey 则绑定到xiaomiQueue上
 	}
