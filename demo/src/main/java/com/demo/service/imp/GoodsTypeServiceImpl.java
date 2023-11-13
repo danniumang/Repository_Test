@@ -25,7 +25,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 		// TODO Auto-generated method stub
 		model.addAttribute("allTypes", goodsTypeMapper.selectGoodsType());
 		logger.info(goodsTypeMapper.selectGoodsType().toString());
-		return "admin/addType";
+		return "addType";
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
 	public String toDeleteType(Model model) {
 		// TODO Auto-generated method stub
 		model.addAttribute("allTypes", goodsTypeMapper.selectGoodsType());
-		return "admin/deleteType";
+		return "deleteType";
 	}
 
 	@Override
