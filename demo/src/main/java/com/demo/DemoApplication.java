@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
 /**
  * @Title DemoApplication.java
  * @Des TODO
@@ -24,6 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling //开启定时任务，这个是spring提供的定时任务
 @EnableBatchProcessing//batch 批量处理
+//@EnableAdminServer//启动adminServer 监控管理端启动，一般是监控服务运行状态，单独的一个服务，client 时一个一个的服务（微服务）,
 @MapperScan("com.demo.dao")
 public class DemoApplication {
 
